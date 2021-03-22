@@ -7,12 +7,14 @@ Feel free to contribute!
 
 The bot has a single configuration file at the root of the repository, `config.json`.
 
+There is a template at `config.example.json`. Rename this to `config.json` and fill in the details as per the descriptions below.
+
 | Key | Purpose | Default |
 |:----|:--------|:--------|
 |token*|Your bot token|N/a|
 |prefix*|Your bot prefix|N/a|
 |countChannelID*|The ID of the channel counting takes place in|N/a|
-|adminRolesIDs|Roles that allow the user to run `set-count`. There are no other admin commands (for now)|`[]`|
+|adminRolesIDs|Roles that allow the user to run `set-count`. There are no other admin commands (for now). These must be provided as strings, rather than numbers. (put " " around them.)|`[]`|
 |errorOnCommandNotFound|Whether to tell the user the command wasn't found if they try to use a command that doesn't exist|`false`|
 
 *necessary to function
