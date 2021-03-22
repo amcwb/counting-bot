@@ -1,0 +1,23 @@
+{
+  "name": "counting-bot",
+  "version": "1.0.0",
+  "description": "Simple counting channel bot",
+  "main": "dist/bot.js",
+  "repository": "https://github.com/starsflower/counting-bot",
+  "author": "Jacob <19372006+starsflower@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^14.14.35",
+    "@types/ws": "^7.4.0",
+    "discord.js": "^12.5.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.3"
+  },
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
