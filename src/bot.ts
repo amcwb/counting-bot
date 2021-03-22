@@ -15,7 +15,7 @@ client.commands = new discord.Collection();
 // Load commands dynamically
 const commandFiles = fs.readdirSync(path.join(__dirname, "commands")).filter(file => file.endsWith(".js") && file !== "commands.js");
 for (const file of commandFiles) {
-	import(`./commands/${file}`).then(command => {
+    import(`./commands/${file}`).then(command => {
         client.commands.set(command.name, command);
     }).catch(console.error);
 }
@@ -26,8 +26,8 @@ client.on("ready", () => {
 
 
 function handleCommand(message: Message) {
-	const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
-	const commandName = args.shift().toLowerCase();
+    const args = message.content.slice(client.config.prefix.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
     if (!client.commands.has(commandName)) {
         if (client.config.errorOnCommandNotFound) {
             message.reply("That command was not found!");
