@@ -5,6 +5,5 @@ export interface Command {
     name: string,
     description: string,
     admin: boolean,
-    run: (client: CustomClient, message: Message, args: string[]) => void,
-    requiresConfigModidfication: boolean
+    run: (client: CustomClient, message: Message, args: string[]) => void
 }

@@ -1,14 +1,15 @@
 import * as fs from "fs";
 import * as path from "path";
 import discord, { Client, Message } from "discord.js";
-import { Command } from "./commands/commands";
 import { loadOptions } from "./options";
-import { CustomClient, getCount } from "./client";
+import { CustomClient, getCount, getCountChannel, getCounts } from "./client";
 
 // Create client with commands property
 const client: CustomClient = new Client();
 client.config = loadOptions();
 client.getCount = getCount.bind(client);
+client.getCounts = getCounts.bind(client);
+client.getCountChannel = getCountChannel.bind(client);
 client.commands = new discord.Collection();
 
 
@@ -55,11 +56,38 @@ function handleCommand(message: Message) {
 }
 
 function handleCount(message: Message) {
-    return
+    client.getCounts(10).then(counts => {
+        // Difference in all.
+        const differences: number[] = [];
+        for (let i = counts.length - 2; i >= 0; i--) {
+            differences.push(counts[i+1].value-counts[i].value);
+        }
+
+        if (differences[0] !== 1) {
+            message.delete().then(() => {
+                message.reply("That number does not follow the previous number...").then(res => {
+                    res.delete({timeout: 5000});
+                })
+            }).catch(() => {
+                message.reply("That number does not follow the previous number... (I was unable to delete your message)")
+                    .then(res => {
+                        res.delete({timeout: 5000});
+                    })
+            })
+        } else if (counts.length >= 2 && counts[counts.length-1].user === counts[counts.length-2].user) {
+            // Same user
+            message.delete().then(() => {
+                message.reply("You can not follow yourself!").then(res => {
+                    res.delete({timeout: 5000});
+                })
+            });
+        }
+    })
 }
 
 // Handle commands
 client.on("message", (message) => {
+    if (message.author.id === client.user.id) return;
     if (message.content.startsWith(client.config.prefix) && !message.author.bot) {
         handleCommand(message);
     } else if (message.channel.id === client.config.countChannelID) {
