@@ -3,6 +3,5 @@
     "prefix": "bot prefix",
     "countChannelID": "channel to count in",
     "adminRolesIDs": [],
-    "deleteWhenIncorrect": true,
     "errorOnCommandNotFound": false
 }

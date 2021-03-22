@@ -1,3 +1,20 @@
+// Copyright (C) 2021 Avery
+// 
+// This file is part of counting-bot.
+// 
+// counting-bot is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// counting-bot is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with counting-bot.  If not, see <http://www.gnu.org/licenses/>.
+
 import * as fs from "fs";
 import * as path from "path";
 import discord, { Client, Message } from "discord.js";
@@ -99,6 +116,10 @@ client.on("message", (message) => {
 // Start up
 if (client.config.token === undefined) {
     console.error("No bot token provided in config.json!");
+} else if (client.config.prefix === undefined) {
+    console.error("No prefix provided in config.json");
+} else if (client.config.countChannelID === undefined) {
+    console.error("No counting channel specified");
 } else {
     client.login(client.config.token);
 }
